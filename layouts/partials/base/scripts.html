@@ -21,12 +21,14 @@
 {{ .Scratch.Add "js" (slice (resources.Get "js/site.js"))}}
 
 {{ with .Site.Params.googleAnalytics }}
-<script>
-  var _gaq=[['_setAccount','{{ . }}'],['_trackPageview']];
-  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-  s.parentNode.insertBefore(g,s)}(document,'script'));
-</script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ . }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ . }}');
+  </script>
 {{ end }}
 <script>
 var ENABLE_POPOVER = {{.Site.Params.popover.enablepopover}}, // enable or disable popover: true/false.
