@@ -1,3 +1,7 @@
+{{ with .Site.Params.googleAnalytics }}
+<script data-ad-client="{{ . }}" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+{{ end }}
+
 {{ if ne .Site.Params.mailmunchid "" }}
 <!-- MailMunch  -->
 <script src="//s3.amazonaws.com/mailmunch/static/site.js" id="mailmunch-script" data-mailmunch-site-id="{{ .Site.Params.mailmunchid }}" async="async"></script>
