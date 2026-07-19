@@ -5,6 +5,11 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
            {{ partial "bloc/footer/nav.html" . }}
         </div>
+		{{  if eq .Site.Params.showRightSidebar  false  }} 
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+			{{ partial "modules/site/link/social" .  }}
+		</div>
+		{{  end  }}
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
               {{ partial "bloc/footer/credits.html" . }}
         </div>
