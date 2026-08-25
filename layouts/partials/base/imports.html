@@ -28,6 +28,10 @@
 {{ $css := .Scratch.Get "css" | resources.Concat "css/bundle.css" | resources.Minify| resources.Fingerprint "sha512" }}
 <link rel="stylesheet" href="{{ $css.Permalink }}" >
 
+{{ if fileExists "static/css/custom.css" }}
+  <link rel="stylesheet" href="{{ "css/custom.css" | relURL }}">
+{{end}}
+
 {{ $css := resources.Get "css/custom.css" }}
 {{ if $css }}
   <link rel="stylesheet" href="{{ $css.RelPermalink }}">
