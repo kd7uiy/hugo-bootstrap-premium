@@ -26,7 +26,7 @@
 {{ end }}
 
 {{ $css := .Scratch.Get "css" | resources.Concat "css/bundle.css" | resources.Minify| resources.Fingerprint "sha512" }}
-<link rel="stylesheet" href="{{ $css.Permalink }}" >
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" >
 
 {{ if fileExists "static/css/custom.css" }}
   <link rel="stylesheet" href="{{ "css/custom.css" | relURL }}">
