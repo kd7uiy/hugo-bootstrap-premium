@@ -57,26 +57,31 @@ function buildPath(theArray){
 }
 // main function: changeLanguage takes a language acronyme as an argument and replaces the path name in the URL using JavaScript Cookie v2.1.4 https://github.com/js-cookie/js-cookie
 function changeLanguage(theLanguage){
-     if (theLanguage != defaultLang) {
-            // remove the first item
-              pathArray.splice(0,1);
-
-
-            // add the Language
-            pathArray.splice(0, 0, theLanguage);
-            console.log(pathArray.length);
-            if (thepathname != buildPath(pathArray)){
-
-             // create cookie
-            Cookies.set('selectedLanguage', theLanguage);
-            // replace path
-
-            if (pathArray.length > 4)  {
-                window.location.replace(constructPath + '/' + theLanguage + '/post');
-            } else {
-                window.location.replace(constructPath + buildPath(pathArray));
-            }
-
-            }
-        }
+    Cookies.set('selectedLanguage', theLanguage, { path: '/' });
+    var currentIsDefault = !checkLanguage();
+    var targetIsDefault = (theLanguage == defaultLang);
+    
+    var newPathArray = window.location.pathname.split('/');
+    newPathArray.splice(0, 1); // remove first empty string
+    
+    if (!currentIsDefault) {
+        newPathArray.splice(0, 1); // remove current lang prefix
+    }
+    
+    if (!targetIsDefault) {
+        newPathArray.splice(0, 0, theLanguage); // add target lang prefix
+    }
+    
+    var newPathname = buildPath(newPathArray);
+    if (newPathname === "") {
+        newPathname = "/";
+    }
+    // Match trailing slashes with Hugo
+    if (thepathname.endsWith('/') && !newPathname.endsWith('/')) {
+        newPathname += '/';
+    }
+    
+    if (thepathname !== newPathname && thepathname !== newPathname + '/') {
+        window.location.replace(constructPath + newPathname);
+    }
 }
