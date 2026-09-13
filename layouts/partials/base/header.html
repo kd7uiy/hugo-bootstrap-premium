@@ -24,18 +24,18 @@
             {{ range .Site.Menus.main }}
             <li class="{{if $currentNode.IsMenuCurrent "main" . }}active {{end}}{{if .HasChildren}}dropdown{{end}}">
               {{  if .HasChildren  }}
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ .Pre | safeHTML }} {{ .Name }} <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ .Pre | safeHTML }} {{ if .Identifier }}{{ i18n .Identifier | default .Name }}{{ else }}{{ .Name }}{{ end }} <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                     {{ range .Children }}
                       <li class="{{ if $currentNode.IsMenuCurrent "main" . }}active{{ end }}">
-                        <a href="{{ .URL }}">{{ .Pre | safeHTML }} {{ .Name }}</a>
+                        <a href="{{ .URL }}">{{ .Pre | safeHTML }} {{ if .Identifier }}{{ i18n .Identifier | default .Name }}{{ else }}{{ .Name }}{{ end }}</a>
                       </li>
                     {{ end }}
                   </ul>
               {{ else }}
-		<a href="{{ .URL | absLangURL }}" {{ if ne .Name ""}} title="{{ .Name }}"{{ end }}>
+		<a href="{{ .URL | absLangURL }}" {{ if ne .Name ""}} title="{{ if .Identifier }}{{ i18n .Identifier | default .Name }}{{ else }}{{ .Name }}{{ end }}"{{ end }}>
                   {{ .Pre | safeHTML }}
-                  {{ .Name }}
+                  {{ if .Identifier }}{{ i18n .Identifier | default .Name }}{{ else }}{{ .Name }}{{ end }}
                 </a>
               {{end}}
             </li>
